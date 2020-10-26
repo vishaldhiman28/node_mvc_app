@@ -1,0 +1,15 @@
+extends layout
+
+block layout-content
+  div(class="wrapper")
+    div(class="form-login")
+      form(action="/login" method="post")
+        div(class="form-group")
+          label(for="username") Username
+          input(class="form-control" type="text",name="username" placeholder="Username" autofocus)
+        div(class="form-group")    
+          label(for="password") Password
+          input(class="form-control" type="password",name="password" placeholder="Password")
+        div(class="form-group")
+          div(class="text-right")
+            input(class="btn btn-primary" type="submit" value="LogIn")

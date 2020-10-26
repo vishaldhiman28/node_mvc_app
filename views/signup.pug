@@ -1,0 +1,28 @@
+extends layout 
+
+block layout-content
+  div.text-center
+    form(class="signUp-form", method="POST" action="/signup")
+      div.signup
+        h1 User SignUp
+        label( for="inputUserName") Username
+        input(type="email" name="username" id="inputUsername" placeholder="username" required autofocus)
+      div.pass 
+        label(for="inputPassword") Password
+        input(type="password" name="password" id="inputPassowrd"  placeholder="password")
+      div.pass2
+        label(for="reEnterPassword") Re-enter Password
+        input(type="password" name="password2" id="re_passowrd"  placeholder="password")
+
+      div.name
+        label(for="inputName") Name
+        input(type="text" name="name" id="inputName" placeholder="name" required)
+
+     
+      
+      div.num
+        label(for="inputMobileNumber") Mobile Number
+        input(type="text" name="mobile_number" id="inputMobileNumber" placeholder="mobile number")
+      
+      div.button_sign
+        button(type="submit") Sign Up     
