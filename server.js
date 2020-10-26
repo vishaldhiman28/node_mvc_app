@@ -8,7 +8,7 @@ const signup        = require ('./routes/signup');
 const login         = require ('./routes/login');
 const landing_page  = require ('./routes/landing_page');
 const logout        = require ('./routes/logout');
-const db            = require ('./database_connection');
+const db            = require ('./common/database_connection');
 
 const app          = express ();
 
@@ -49,7 +49,12 @@ app.use (isSessionExist, () => {
         res.redirect ("login", { title: "Login"} );
 });*/
 
-db.db_connect(() => {
+db.db_connect((data, error) => {
+	if (error) {
+		console.error ('Mongo connection failed. Error : ' + error);
+		process.exit (1);
+	}
+
 	app.listen (3000, () => {
 		console.log ("Server is listening on port 3000");
 	});

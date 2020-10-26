@@ -28,28 +28,31 @@ const validate_input = (data) => {
 
 module.exports = {
 	get_signup  : (req, res) => {
-			res.render ('signup', { title : "SignUp" } );
+		res.render ('signup', { title : "SignUp" } );
 	},
 	post_signup : (req, res) => {
-			let validated_data      = validate_input (req.body);
-			if (validated_data.msg) {
-				res.render ('signup', { title : "SignUp", msg : validated_data.msg } );
+		let validated_data      = validate_input (req.body);
+
+		if (validated_data.msg) {
+			res.render ('signup', { title : "SignUp", msg : validated_data.msg } );
+		}
+
+		validated_data.password = hash_util.hashed (validated_data.password);
+
+		user_model.find_user (validated_data.username, (user_data, error) => {
+			if (error) {
+				console.log ('Error finding user. Error : ' + error);
+				return res.render ('signup', { title : "SignUp", msg: "Username already exist."} );
 			}
-			validated_data.password = hash_util.hashed (validated_data.password);
-			user_model.find_user (validated_data.username, (user_data) => {
-				if (user_data.msg == 'null') {
-          				user_model.create_user (validated_data, (user_data) => {
-						if (user_data.msg){
-							res.render('signup', { title : "SignUp", msg });
-						}
-						req.session.user = user_data;
-          					console.log("hi");
-						res.render ('landing_page', { name : user_data.name } );
-					});
+
+			user_model.create_user (validated_data, (user_data, error) => {
+				if (error){
+					return res.render('signup', { title : "SignUp", msg });
 				}
-				else{
-					res.render ('signup', { title : "SignUp", msg: "Username already exist."} );
-				}
+
+				req.session.user = user_data;
+				res.render ('landing_page', { name : user_data.name } );
 			});
+		});
 	}
 }
