@@ -23,13 +23,6 @@ email_util.validate_email = (email) => {
 	return false;
 }
 
-session_util.isSessionExist = (req,res,next) => {
-	if(req.session.user && req.cookies.user_id)
-		return res.render('landingPage', { name: req.session.user.name })
-	            
-	next();
-};
-
 module.exports = {
 	hash_util,
 	email_util

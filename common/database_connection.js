@@ -12,7 +12,7 @@ function db_connect (callback) {
 
 		_db = database.db (_dbconfig.name);
 
-		return callback(_db, null);
+		return callback (_db, null);
 	});
 }
 	
@@ -20,7 +20,7 @@ function get_db () {
 	return _db;		
 }
 function close_conn () {
-	_db.close();
+	_db.close ();
 }
 
 module.exports = {

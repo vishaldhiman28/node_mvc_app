@@ -16,9 +16,9 @@ app.set ("views", path.join(__dirname, "views"));
 app.set ("view engine", "pug");
 
 app.use (cookie_parser());
-app.use (body_parser.urlencoded( { extended : true } ));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use (session( {
+app.use (body_parser.urlencoded ({ extended : true }));
+app.use (express.static (path.join(__dirname, 'public')));
+app.use (session ({
     key               : 'user_id',
     secret            : 'TheRandomSecretKey',
     resave            : false,
@@ -28,25 +28,23 @@ app.use (session( {
     }
 }));
 
-app.use( (req,res,next) => {
+app.use ((req,res,next) => {
 	res.locals.session = req.session;
-	next();
+	next ();
 });
 
-
-app.use((req, res, next) => {
-	if (req.cookies.user_id && !req.session.user) {
-		res.clearCookie('user_id');        
-	}
+app.use ((req, res, next) => {
+	if (req.cookies.user_id && !req.session.user)
+		res.clearCookie ('user_id');        
 	
-	next();
+	next ();
 });
 
 const is_session_exist = (req,res,next) => {
 	if(req.session.user && req.cookies.user_id)
 		return res.redirect ('/landing_page');
 
-	next();
+	next ();
 }
 
 app.use ('/', index);
@@ -59,7 +57,7 @@ app.use ((req, res, next) => {
         res.status(400).send ("404 Not Found");
 });
 
-db.db_connect((data, error) => {
+db.db_connect ((data, error) => {
 	if (error) {
 		console.error ('Mongo connection failed. Error : ' + error);
 		process.exit (1);

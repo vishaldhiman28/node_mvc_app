@@ -8,7 +8,7 @@ const validate_input = (data) => {
 	let msg          = null;
 	let is_valid        = false;
 	
-	if (!username || !email_util.validate_email(username))
+	if (!username || !email_util.validate_email (username))
 		msg = "username should be email.";
 
 	if (!password || !password_2) 
