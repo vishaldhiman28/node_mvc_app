@@ -1,28 +1,31 @@
-extends layout 
+extends layout
 
 block layout-content
-  div.text-center
-    form(class="signUp-form", method="POST" action="/signup")
-      div.signup
-        h1 User SignUp
-        label( for="inputUserName") Username
-        input(type="email" name="username" id="inputUsername" placeholder="username" required autofocus)
-      div.pass 
-        label(for="inputPassword") Password
-        input(type="password" name="password" id="inputPassowrd"  placeholder="password")
-      div.pass2
-        label(for="reEnterPassword") Re-enter Password
-        input(type="password" name="password2" id="re_passowrd"  placeholder="password")
+	div(class="main")
+		form(class="form-signin" method="POST" action="/signup")
+			div(class="container")
+				h2(class="h1") SignIn
+				if msg
+					p.description #{msg}
+				
+				label(for="input_username") Username
+				input(type="text" name="username" id="input_username"  placeholder="username" required)
+					
+				label(for="input_password") Password
+				input(type="password" name="password" id="input_passowrd"  placeholder="password" required)
+					
+				label(for="input_password2") Re-Enter Password
+				input(type="password" name="password_2" id="input_passowrd_2"  placeholder="password" required)
+				
+				label(for="input_name") Name
+				input(type="text" name="name" id="input_name"  placeholder="name" required)
 
-      div.name
-        label(for="inputName") Name
-        input(type="text" name="name" id="inputName" placeholder="name" required)
+				label(for="input_mobile_number") Mobile Number
+				input(type="text" name="mobile_number" id="input_mobile_number"  placeholder="10 digit mobile number")
+				
+				button(type="submit") Submit
 
-     
-      
-      div.num
-        label(for="inputMobileNumber") Mobile Number
-        input(type="text" name="mobile_number" id="inputMobileNumber" placeholder="mobile number")
-      
-      div.button_sign
-        button(type="submit") Sign Up     
+				h3(class="h3") Have an account?
+				a(href="/login")
+					button(type="button") LogIn
+				

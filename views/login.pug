@@ -1,15 +1,24 @@
 extends layout
 
 block layout-content
-  div(class="wrapper")
-    div(class="form-login")
-      form(action="/login" method="post")
-        div(class="form-group")
-          label(for="username") Username
-          input(class="form-control" type="text",name="username" placeholder="Username" autofocus)
-        div(class="form-group")    
-          label(for="password") Password
-          input(class="form-control" type="password",name="password" placeholder="Password")
-        div(class="form-group")
-          div(class="text-right")
-            input(class="btn btn-primary" type="submit" value="LogIn")
+	div(class="main")
+		form(class="form-login" method="POST" action="/login")
+
+			div(class="container")
+				h1(class="h1") LogIn
+				
+				if msg
+					p.description #{msg}
+
+				label(for="input_username") Username
+				input(type="text" name="username" id="input_username"  placeholder="username" required)
+
+				label(for="input_password") Password
+				input(type="password" name="password" id="input_passowrd"  placeholder="password" required)
+			
+				button(type="submit") Login
+				
+				h3(class="h3") Need an account?
+					a(href="/signup")
+						button(type="button") SingUp
+

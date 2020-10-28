@@ -1,5 +1,5 @@
 const mongodb       = require ('mongodb');
-const _dbconfig     = require ('./config/dbconfig');
+const _dbconfig     = require ('../config/dbconfig');
 const mongo_client  = mongodb.MongoClient;
 
 let _db;
@@ -12,7 +12,7 @@ function db_connect (callback) {
 
 		_db = database.db (_dbconfig.name);
 
-		callback(_db, null);
+		return callback(_db, null);
 	});
 }
 	

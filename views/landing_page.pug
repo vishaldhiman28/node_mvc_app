@@ -1,9 +1,12 @@
 extends layout
 
 block layout-content
-  div.text-center
-    h1 Hi! #{name}, you are now loggedin.
-    div.LogoutButton
-          a(href="/logout")
-            div.NavButton Logout
+	div(class="main")
+		div(class="landing")
+			div(class="container")
+				div.text-center
+					h1 Hi! #{session.user.name}, you are loggedin.
+					div.LogoutButton
+						a(href="/logout")
+							div.NavButton Logout
      

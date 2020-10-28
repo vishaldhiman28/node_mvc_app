@@ -10,13 +10,14 @@ const landing_page  = require ('./routes/landing_page');
 const logout        = require ('./routes/logout');
 const db            = require ('./common/database_connection');
 
-const app          = express ();
+const app = express ();
 
 app.set ("views", path.join(__dirname, "views"));
 app.set ("view engine", "pug");
 
 app.use (cookie_parser());
 app.use (body_parser.urlencoded( { extended : true } ));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use (session( {
     key               : 'user_id',
     secret            : 'TheRandomSecretKey',
@@ -27,27 +28,36 @@ app.use (session( {
     }
 }));
 
-app.use ((req, res, next) => {
-	if(req.cookies.user_id && !req.session.user) {
-		res.clearCookie ('user_id');
-	}
+app.use( (req,res,next) => {
+	res.locals.session = req.session;
 	next();
 });
 
+
+app.use((req, res, next) => {
+	if (req.cookies.user_id && !req.session.user) {
+		res.clearCookie('user_id');        
+	}
+	
+	next();
+});
+
+const is_session_exist = (req,res,next) => {
+	if(req.session.user && req.cookies.user_id)
+		return res.redirect ('/landing_page');
+
+	next();
+}
+
 app.use ('/', index);
-app.use ('/signup', signup);
-app.use ('/login', login);
+app.use ('/signup', is_session_exist, signup);
+app.use ('/login', is_session_exist, login);
 app.use ('/landing_page', landing_page);
 app.use ('/logout', logout);
 
-/*
 app.use ((req, res, next) => {
         res.status(400).send ("404 Not Found");
-});*/
-/*
-app.use (isSessionExist, () => {
-        res.redirect ("login", { title: "Login"} );
-});*/
+});
 
 db.db_connect((data, error) => {
 	if (error) {

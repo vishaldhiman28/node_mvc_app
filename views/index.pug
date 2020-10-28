@@ -1,18 +1,19 @@
 extends layout
 
 block layout-content
-  div.View
-    h1.Banner Ajio
-    div.Account
-      div.New
-        h2 Create New Account  
-        div.SignUpButton
-          a(href="/signup")
-            div.NavButton SignUp
-      div.Existing 
-        h2 Already Registered
-        div.LoginButton
-          a(href="/login")
-            div.NavButton Login
+	div(class="main")
+		div(class="home")
+			div(class="container")
+				h2.Banner Ajjio 
+					div.NewAcount
+						h3 Create New Account  
+						div.SignUpButton
+							a(href="/signup")
+								button(type="button") SignUp
+					div.Existing 
+						h3 Already Registered
+						div.LoginButton
+							a(href="/login")
+								button(type="buttion") LogIn
 
 

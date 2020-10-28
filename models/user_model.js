@@ -1,4 +1,4 @@
-let db = require ("../database_connection");
+let db = require ("../common/database_connection");
 
 let model = {};
 
@@ -12,7 +12,7 @@ model.create_user = (data, callback) => {
 		if (error)
 			return callback (null, error);
 
-		callback (res.ops[0], null);
+		return callback (res.ops[0], null);
 	});
 };
 
@@ -23,10 +23,7 @@ model.find_user = (username, callback) => {
 		if (error)
 			return callback (null, error);
 
-		if (!res)
-			return callback (null, 'No such user');
-
-		callback (res, null);
+		return callback (res, null);
 	});
 };
 
